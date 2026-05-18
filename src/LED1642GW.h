@@ -1,3 +1,12 @@
+/*
+ * LED1642GW Library
+ * Original author: Pim Swinkels
+ * https://github.com/PimSwinkelsCreative
+ *
+ * Copyright (c) 2026 Pim Swinkels
+ * Licensed under the MIT License
+ */
+
 #pragma once
 
 #include <Arduino.h>

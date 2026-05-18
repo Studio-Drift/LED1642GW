@@ -10,3 +10,6 @@ The only drawback of using the LCD DMA is that one GPIO needs to be sacrificed t
 The driver requires a config register and an output enable register to be set correctly in order for the LEDs to be powered. To allow for asynchronous power-up, the controller periodically sends these settings along with the LED data.
 
 If the Drivers do not have a hardware PWM Clock connected, the Library can provide a 10MHz PWM reference clock using the built-in I2S hardware. This does however limit the PWM frequency to just 150Hz in 16-bit mode. It is advised to use a higher frequency hardware solution.
+
+Originally created and maintained by Pim Swinkels.
+Please retain attribution to the original author in forks and redistributions.

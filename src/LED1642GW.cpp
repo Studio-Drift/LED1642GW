@@ -1,3 +1,12 @@
+/*
+ * LED1642GW Library
+ * Original author: Pim Swinkels
+ * https://github.com/PimSwinkelsCreative
+ *
+ * Copyright (c) 2026 Pim Swinkels
+ * Licensed under the MIT License
+ */
+
 #include "LED1642GW.h"
 #include "driver/gpio.h"     //required for direct output register manipulation
 #include "driver/i2s.h"      //required for 10MHz PWM clock
