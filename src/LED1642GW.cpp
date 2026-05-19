@@ -9,10 +9,27 @@
 
 #include "LED1642GW.h"
 #include "driver/gpio.h"     //required for direct output register manipulation
-#include "driver/i2s.h"      //required for 10MHz PWM clock
 #include "soc/gpio_reg.h"    //required for direct output register manipulation
 #include "soc/gpio_struct.h" //required for direct output register manipulation
 #include "esp_err.h"
+
+
+// I2S compatibility layer
+
+// Newer ESP-IDF versions emit deprecation warnings
+// for the legacy I2S API. We intentionally use the
+// legacy driver because it has the best compatibility
+// across Arduino-ESP32 2.x and 3.x.
+#if defined(__GNUC__)
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wcpp"
+#endif
+
+#include "driver/i2s.h" //required for 10MHz PWM clock
+
+#if defined(__GNUC__)
+    #pragma GCC diagnostic pop
+#endif
 
 LED1642GW::LED1642GW(uint16_t *_ledData, uint16_t _nLedDots, uint8_t _clkPin,
                      uint8_t _dataPin, uint8_t _latchPin, uint8_t _dummyPin, int8_t _pwmClockPin)
@@ -163,12 +180,8 @@ bool LED1642GW::setupDMA(uint32_t clockHz)
     bus_config.bus_width = 8;
     bus_config.max_transfer_bytes = DMA_BLOCK_SIZE;
 
-#if defined(LCD_CLK_SRC_PLL160M)
-    // newer IDF
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
     bus_config.clk_src = LCD_CLK_SRC_PLL160M;
-#elif defined(LCD_CLOCK_SOURCE_PLL160M)
-    // some intermediate versions
-    bus_config.clk_src = LCD_CLOCK_SOURCE_PLL160M;
 #endif
 
     bus_config.data_gpio_nums[0] = dataPin;

@@ -18,18 +18,15 @@
 // ESP-IDF / Arduino compatibility layer
 // ========================================
 
-// Newer ESP-IDF versions:
-#if __has_include(<esp_lcd_io_i80.h>)
-    #include <esp_lcd_io_i80.h>
-#endif
-
-// Exists on both old and new releases:
+// Newer ESP-IDF / Arduino 3.x
 #if __has_include(<esp_lcd_panel_io.h>)
     #include <esp_lcd_panel_io.h>
-#endif
+    #if __has_include(<esp_lcd_io_i80.h>)
+        #include <esp_lcd_io_i80.h>
+    #endif
 
-// Older IDF compatibility:
-#if __has_include(<esp_lcd_panel_io_interface.h>)
+// Older ESP-IDF / Arduino 2.x
+#elif __has_include(<esp_lcd_panel_io_interface.h>)
     #include <esp_lcd_panel_io_interface.h>
 #endif
 
@@ -42,6 +39,11 @@
 
 #ifndef ESP_LCD_IO_I80_TRANS_QUEUE_DEPTH
     #define ESP_LCD_IO_I80_TRANS_QUEUE_DEPTH 10
+#endif
+
+#if !__has_include(<esp_lcd_panel_io.h>) && \
+    !__has_include(<esp_lcd_panel_io_interface.h>)
+    #error "ESP LCD driver not available in this framework version"
 #endif
 
 #define DEFAULT_DUMMY_PIN 1
