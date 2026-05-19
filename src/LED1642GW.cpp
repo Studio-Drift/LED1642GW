@@ -163,12 +163,8 @@ bool LED1642GW::setupDMA(uint32_t clockHz)
     bus_config.bus_width = 8;
     bus_config.max_transfer_bytes = DMA_BLOCK_SIZE;
 
-#if defined(LCD_CLK_SRC_PLL160M)
-    // newer IDF
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
     bus_config.clk_src = LCD_CLK_SRC_PLL160M;
-#elif defined(LCD_CLOCK_SOURCE_PLL160M)
-    // some intermediate versions
-    bus_config.clk_src = LCD_CLOCK_SOURCE_PLL160M;
 #endif
 
     bus_config.data_gpio_nums[0] = dataPin;
