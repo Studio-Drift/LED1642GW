@@ -12,7 +12,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/PimSwinkelsCreative/LED1642GW"
+        "url": "https://github.com/Studio-Drift/LED1642GW"
     },
     "license": "MIT",
     "frameworks": "arduino",
@@ -20,7 +20,6 @@
     "headers": "LED1642GW.h",
     "dependencies":
     {
-        "16bitPixels": "https://github.com/PimSwinkelsCreative/16bitPixelTypes#v0.1.1"
     },
     "examples":[
         {
