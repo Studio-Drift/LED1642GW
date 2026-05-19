@@ -1,11 +1,48 @@
+/*
+ * LED1642GW Library
+ * Original author: Pim Swinkels
+ * https://github.com/PimSwinkelsCreative
+ *
+ * Copyright (c) 2026 Pim Swinkels
+ * Licensed under the MIT License
+ */
+
 #pragma once
-#include <16bitPixelTypes.h>
+
 #include <Arduino.h>
-#include <esp_heap_caps.h> //required to access ESP32's advanced memory allocator
-#include <esp_lcd_io_i80.h> //required for DMA transaction interface
-#include <esp_lcd_panel_io.h> //required for DMA transaction queue and callbacks
-#include <freertos/FreeRTOS.h> //required for semaphore types/functions
-#include <freertos/semphr.h> //required for semaphore types/functions
+#include <16bitPixelTypes.h>
+
+#include <esp_heap_caps.h>
+
+// ========================================
+// ESP-IDF / Arduino compatibility layer
+// ========================================
+
+// Newer ESP-IDF versions:
+#if __has_include(<esp_lcd_io_i80.h>)
+    #include <esp_lcd_io_i80.h>
+#endif
+
+// Exists on both old and new releases:
+#if __has_include(<esp_lcd_panel_io.h>)
+    #include <esp_lcd_panel_io.h>
+#endif
+
+// Older IDF compatibility:
+#if __has_include(<esp_lcd_panel_io_interface.h>)
+    #include <esp_lcd_panel_io_interface.h>
+#endif
+
+#include <freertos/FreeRTOS.h>
+#include <freertos/semphr.h>
+
+// ========================================
+// Fallback typedefs for older frameworks
+// ========================================
+
+#ifndef ESP_LCD_IO_I80_TRANS_QUEUE_DEPTH
+    #define ESP_LCD_IO_I80_TRANS_QUEUE_DEPTH 10
+#endif
 
 #define DEFAULT_DUMMY_PIN 1
 
